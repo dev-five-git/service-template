@@ -21,7 +21,7 @@ jobs:
         run: bun install
 
       - name: bun run lint
-        run: bun -F ./apps/* lint
+        run: bun -F ./apps/** lint
 
       - name: bun run build
         run: bun -F ./apps/* build

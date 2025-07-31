@@ -18,10 +18,7 @@ jobs:
         run: bun install
 
       - name: bun run lint
-        run: bun -F ./apps/front lint
-
-      - name: bun run lint
-        run: bun -F ./apps/admin lint
+        run: bun -F ./apps/front lint -F ./apps/admin lint
 
       - name: bun run build
         run: bun -F ./apps/front build

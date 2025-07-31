@@ -7,6 +7,10 @@ yarn-error.log*
 # Production
 build
 
+# Next.js
+out
+.next
+
 # Misc
 .DS_Store
 *.pem

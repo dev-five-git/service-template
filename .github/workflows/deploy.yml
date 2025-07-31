@@ -30,23 +30,24 @@ jobs:
       - name: bun run build
         run: bun -F ./apps/front -F ./apps/admin build
 
-  deploy:
-    if: github.ref == 'refs/heads/main'
-    runs-on: self-hosted
-    needs: check
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: compress
-        run: tar --exclude='.git' --exclude='.github' -zcf deploy.tar.gz .
+        if: github.ref == 'refs/heads/main'
+        run: |
+          if [ -f .gitignore ]; then
+            EXCLUDES=$(grep -v '^#' .gitignore | grep -v '^$' | grep -vE '^(\.next|out)/?$' | sed 's|^|--exclude=|')
+            tar $EXCLUDES --exclude='.git' --exclude='.github' -zcf deploy.tar.gz .
+          else
+            tar --exclude='.git' --exclude='.github' -zcf deploy.tar.gz .
+          fi
 
       - name: upload
+        if: github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@v4
         with:
           name: deploy
           path: deploy.tar.gz
       - name: scp
+        if: github.ref == 'refs/heads/main'
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SSH_HOSTNAME }}
@@ -57,6 +58,7 @@ jobs:
           target: ~/deploy.tar.gz
 
       - name: ssh
+        if: github.ref == 'refs/heads/main'
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOSTNAME }}

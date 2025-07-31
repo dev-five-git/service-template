@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   check:
     runs-on: self-hosted
@@ -21,10 +25,10 @@ jobs:
         run: bun install
 
       - name: bun run lint
-        run: bun -F ./apps/** lint
+        run: bun -F ./apps/front -F ./apps/admin lint
 
       - name: bun run build
-        run: bun -F ./apps/* build
+        run: bun -F ./apps/front -F ./apps/admin build
 
   deploy:
     if: github.ref == 'refs/heads/main'

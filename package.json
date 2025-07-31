@@ -1,0 +1,18 @@
+{
+    "version": "1.0.0",
+    "description": "service-template",
+    "type": "module",
+    "devDependencies": {
+        "eslint-plugin-devup": "^2.0",
+        "eslint": "^9.32"
+    },
+    "workspaces": [
+        "apps/*"
+    ],
+    "scripts": {
+        "lint": "bun -F * lint",
+        "test": "bun -F * test",
+        "dev": "bun -F * dev"
+    },
+    "author": "devfive"
+}

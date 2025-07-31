@@ -1,0 +1,27 @@
+{
+  "name": "admin",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.83",
+    "react": "^19.1",
+    "next": "^15.4",
+    "@devup-ui/react": "^1",
+    "@devup-ui/components": "^0.1",
+    "@devup-ui/reset-css": "^1"
+  },
+  "devDependencies": {
+    "@tanstack/react-query-devtools": "^5.83",
+    "@devup-ui/next-plugin": "^1",
+    "@types/react": "^19.1",
+    "@types/node": "^24.1"
+  }
+}

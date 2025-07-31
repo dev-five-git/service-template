@@ -1,0 +1,28 @@
+{
+  "name": "front",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "react": "^19.1",
+    "next": "^15.4",
+    "@devup-ui/react": "^1",
+    "@devup-ui/reset-css": "^1"
+  },
+  "devDependencies": {
+    "@devup-ui/next-plugin": "^1",
+    "typescript": "^5",
+    "@types/node": "^24",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "^15.4",
+    "@eslint/eslintrc": "^3"
+  }
+}

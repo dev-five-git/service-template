@@ -67,6 +67,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd ~/
+            docker compose down
             find . -mindepth 1 -maxdepth 1 ! -name 'deploy.tar.gz' -exec rm -rf {} +
             tar -zxf deploy.tar.gz
             rm -rf deploy.tar.gz

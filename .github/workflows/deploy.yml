@@ -1,0 +1,34 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  check:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: bun install
+        run: bun install
+
+      - name: bun run lint
+        run: bun -F * lint
+
+      - name: bun run build
+        run: bun -F * build
+
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v5

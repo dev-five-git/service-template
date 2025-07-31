@@ -1,6 +1,6 @@
 import { Flex, Text, VStack } from '@devup-ui/react'
-import { MENU_ITEMS } from 'src/menu_items'
 
+import { MENU_ITEMS } from '../../menu_items'
 import { LogoutButton } from '../Buttons/LogoutButton'
 import { ThemeButton } from '../Buttons/ThemeButton'
 import { HeaderButtonContainer } from '../Layout/HeaderButtonContainer'

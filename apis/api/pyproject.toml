@@ -1,0 +1,12 @@
+[project]
+name = "api"
+description = "devfive template api"
+version = "0.1.0"
+authors = [{ name = "devfive" }]
+readme = "README.md"
+requires-python = ">=3.13,<4.0"
+
+dependencies = ["fastapi>=0.116.1"]
+
+[dependency-groups]
+dev = ["uvicorn>=0.35.0"]

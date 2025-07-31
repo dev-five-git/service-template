@@ -1,4 +1,4 @@
-import { Button } from '@devup/product-system'
+import { Button } from '@devup-ui/components'
 import { css, Text } from '@devup-ui/react'
 
 export function HeaderButton({

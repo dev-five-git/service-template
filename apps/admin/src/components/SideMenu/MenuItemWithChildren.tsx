@@ -1,7 +1,7 @@
 'use client'
 
-import { usePathname } from '@devup/react'
 import { Box, Flex, Grid, Image, Text, VStack } from '@devup-ui/react'
+import { usePathname } from 'next/navigation'
 import { useReducer } from 'react'
 
 import { MenuItem } from './MenuItem'
@@ -36,6 +36,7 @@ export function MenuItemWithChildren({
           {label}
         </Text>
         <Image
+          alt="arrow"
           rotate={open ? undefined : '180deg'}
           src="/icons/arrow.svg"
           transition=".2s"

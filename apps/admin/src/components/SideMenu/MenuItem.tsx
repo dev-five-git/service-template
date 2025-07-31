@@ -1,7 +1,8 @@
 'use client'
 
-import { Link, usePathname } from '@devup/react'
 import { css, Flex, Text } from '@devup-ui/react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 export function MenuItem({
   id,
@@ -19,8 +20,8 @@ export function MenuItem({
   return (
     <Link
       className={css({ textDecoration: 'none' })}
+      href={link ?? '/'}
       onClick={onClick}
-      to={link}
     >
       <Flex
         _active={!isSelected && { bg: [null, null, '$primaryBgBold'] }}

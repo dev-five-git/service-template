@@ -1,7 +1,7 @@
+import { Footer } from '@components/Layout/Footer'
+import { Header } from '@components/Layout/Header'
+import { SideBar } from '@components/SideMenu/SideBar'
 import { Box, Flex, VStack } from '@devup-ui/react'
-import { Footer } from 'src/components/Layout/Footer'
-import { Header } from 'src/components/Layout/Header'
-import { SideBar } from 'src/components/SideMenu/SideBar'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

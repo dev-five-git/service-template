@@ -18,10 +18,10 @@ jobs:
         run: bun install
 
       - name: bun run lint
-        run: bun -F * lint
+        run: bun -F apps/* lint
 
       - name: bun run build
-        run: bun -F * build
+        run: bun -F apps/* build
 
   deploy:
     if: github.ref == 'refs/heads/main'

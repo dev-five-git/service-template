@@ -5,10 +5,10 @@ const nextConfig: NextConfig = {
   /* config options here */
   output: 'standalone',
   experimental: {
-    optimizePackageImports: ['@devup-ui/reset-css'],
+    optimizePackageImports: ['@devup-ui/reset-css', '@devup-ui/components'],
   },
 }
 
 export default DevupUI(nextConfig, {
-  include: ['@devup-ui/reset-css'],
+  include: ['@devup-ui/reset-css', '@devup-ui/components'],
 })

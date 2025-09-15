@@ -6,7 +6,13 @@ authors = [{ name = "devfive" }]
 readme = "README.md"
 requires-python = ">=3.13,<4.0"
 
-dependencies = ["fastapi>=0.116.1"]
+dependencies = [
+    "alembic>=1.16.5",
+    "auto-import-py>=0.1.0",
+    "fastapi>=0.116.1",
+    "fastapi-fs-router>=0.1.1",
+    "sqlmodel>=0.0.24",
+]
 
 [dependency-groups]
-dev = ["uvicorn>=0.35.0"]
+dev = ["alembic>=1.16.5", "pytest>=8.4.2", "uvicorn>=0.35.0"]

@@ -10,8 +10,8 @@
     "test": "bun test"
   },
   "dependencies": {
-    "react": "^19.1",
-    "next": "^15.4",
+    "react": "^19",
+    "next": "^15",
     "@devup-ui/react": "^1",
     "@devup-ui/reset-css": "^1"
   },
@@ -22,7 +22,7 @@
     "@types/node": "^24",
     "@types/react": "^19",
     "eslint": "^9",
-    "eslint-config-next": "^15.4",
+    "eslint-config-next": "^15",
     "@eslint/eslintrc": "^3"
   }
 }

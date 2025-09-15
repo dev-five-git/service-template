@@ -1,19 +1,19 @@
 
 services:
-  postgres:
-    image: postgres:17.5-alpine3.22
-    container_name: service-template-postgres
-    environment:
-      POSTGRES_DB: service_template
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - service-network
-    restart: unless-stopped
+  # postgres:
+  #   image: postgres:17.5-alpine3.22
+  #   container_name: service-template-postgres
+  #   environment:
+  #     POSTGRES_DB: service_template
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: postgres
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   networks:
+  #     - service-network
+  #   restart: unless-stopped
 
   api:
     build:
@@ -22,10 +22,10 @@ services:
     container_name: service-template-api
     ports:
       - "8000:8000"
-    environment:
-      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/service_template
-    depends_on:
-      - postgres
+    # environment:
+      # - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/service_template
+    # depends_on:
+    #   - postgres
     networks:
       - service-network
     restart: unless-stopped
@@ -60,9 +60,9 @@ services:
       - service-network
     restart: unless-stopped
 
-volumes:
-  postgres_data:
-    driver: local
+# volumes:
+#   postgres_data:
+#     driver: local
 
 networks:
   service-network:

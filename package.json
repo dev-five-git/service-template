@@ -17,7 +17,7 @@
         "test": "bun -F * test",
         "dev": "bun -F * dev",
         "api": "uv run --package api --directory apis/api uvicorn main:app --reload",
-        "preinstall": "uv sync --all-packages --group dev && uv run --directory apis/api python extract_openapi.py && bunx openapi-typescript ./apis/api/openapi.json -o ./schema.d.ts"
+        "preinstall": "uv sync --all-packages --group dev && uv run --directory apis/api python extract_openapi.py && bunx openapi-typescript ./apis/api/openapi.json -o ./schema.d.ts && cp ./schema.d.ts ./apps/front/schema.d.ts && cp ./schema.d.ts ./apps/admin/schema.d.ts"
     },
     "author": "devfive"
 }

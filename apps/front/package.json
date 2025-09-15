@@ -10,10 +10,11 @@
     "test": "bun test"
   },
   "dependencies": {
-    "react": "^19",
-    "next": "^15",
     "@devup-ui/react": "^1",
-    "@devup-ui/reset-css": "^1"
+    "@devup-ui/reset-css": "^1",
+    "next": "^15",
+    "openapi-fetch": "^0.14.0",
+    "react": "^19"
   },
   "devDependencies": {
     "eslint-plugin-devup": "^2",

@@ -61,11 +61,17 @@ jobs:
 
       - name: compress
         run: |
+          cp pyproject.toml ./apis/pyproject.toml
+          cp uv.lock ./apis/uv.lock
+
+          cp package.json ./apps/package.json
+          cp bun.lock ./apps/bun.lock
+          cp ecosystem.json ./apps/ecosystem.json
           if [ -f .gitignore ]; then
-            EXCLUDES=$(grep -v '^#' .gitignore | grep -v '^$' | grep -vE '^(\.next|out)/?$' | sed 's|^|--exclude=|')
-            tar $EXCLUDES --exclude='.git' --exclude='.github' -zcf deploy.tar.gz .
+            EXCLUDES=$(grep -v '^#' .gitignore | grep -v '^$' | grep -vE '^(\.next|out)/?$' | sed 's|^|-x=|')
+            zip -r deploy.zip . $EXCLUDES -x '.git' -x '.github' -x 'infra/*' -x '.*/*'
           else
-            tar --exclude='.git' --exclude='.github' -zcf deploy.tar.gz .
+            zip -r deploy.zip . -x '.git' -x '.github' -x 'infra/*' -x '.*/*'
           fi
 
       - name: upload

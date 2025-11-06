@@ -67,12 +67,7 @@ jobs:
           cp package.json ./apps/package.json
           cp bun.lock ./apps/bun.lock
           cp ecosystem.json ./apps/ecosystem.json
-          if [ -f .gitignore ]; then
-            EXCLUDES=$(grep -v '^#' .gitignore | grep -v '^$' | grep -vE '^(\.next|out)/?$' | sed 's|^|-x=|')
-            zip -r deploy.zip . $EXCLUDES -x '.git' -x '.github' -x 'infra/*' -x '.*/*'
-          else
-            zip -r deploy.zip . -x '.git' -x '.github' -x 'infra/*' -x '.*/*'
-          fi
+          zip -r deploy.zip . -x '.git' -x '.github' -x 'infra/*' -x '.*/*'
 
       - name: upload
         uses: actions/upload-artifact@v4

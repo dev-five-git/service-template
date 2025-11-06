@@ -63,10 +63,13 @@ jobs:
         run: |
           cp pyproject.toml ./apis/pyproject.toml
           cp uv.lock ./apis/uv.lock
+          cp .dockerignore ./apis/.dockerignore
 
           cp package.json ./apps/package.json
           cp bun.lock ./apps/bun.lock
           cp ecosystem.json ./apps/ecosystem.json
+          cp .dockerignore ./apps/.dockerignore
+
           zip -r deploy.zip . -x '.git' -x '.github' -x 'infra/*' -x '.*/*'
 
       - name: upload

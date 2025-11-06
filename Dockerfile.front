@@ -7,25 +7,29 @@ FROM base AS deps
 WORKDIR /app
 
 # Copy package files first for better caching
-COPY package.json bun.lock ./
 COPY admin/package.json ./apps/admin/
+COPY bun.lock ./apps/admin/
 COPY front/package.json ./apps/front/
+COPY bun.lock ./apps/front/
 
 # Install dependencies
+WORKDIR /app/apps/admin
+RUN bun install --ignore-scripts
+WORKDIR /app/apps/front
 RUN bun install --ignore-scripts
 
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
 ENV NODE_ENV=production
-COPY --from=deps /app/package.json /app/bun.lock ./
-COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/apps/admin/node_modules ./apps/admin/node_modules
 COPY --from=deps /app/apps/front/node_modules ./apps/front/node_modules
 COPY admin ./apps/admin
 COPY front ./apps/front
-RUN bun run -F admin build
-RUN bun run -F front build
+WORKDIR /app/apps/admin
+RUN bun run build
+WORKDIR /app/apps/front
+RUN bun run build
 
 # Production image, copy all the files and run next
 FROM base AS runner
@@ -36,23 +40,21 @@ RUN bun install -g pm2
 RUN apk add --no-cache curl
 EXPOSE 3000 3001
 
-COPY --from=deps /app/node_modules/ /app/node_modules/
-
 WORKDIR /app/apps/admin
-COPY --from=builder /app/apps/admin/.next/standalone/apps/admin ./
+COPY --from=builder /app/apps/admin/.next/standalone ./
 COPY --from=builder /app/apps/admin/.next/static ./.next/static
 COPY --from=builder /app/apps/admin/public ./public
 
 WORKDIR /app/apps/front
-COPY --from=builder /app/apps/front/.next/standalone/apps/front ./
+COPY --from=builder /app/apps/front/.next/standalone ./
 COPY --from=builder /app/apps/front/.next/static ./.next/static
 COPY --from=builder /app/apps/front/public ./public
 
 
+WORKDIR /app
 # Create ecosystem file
 COPY ecosystem.json ./ecosystem.json
 
 # USER nextjs
-
 
 CMD ["pm2-runtime", "start", "ecosystem.json"]

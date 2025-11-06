@@ -5,7 +5,7 @@ RUN pip install uv
 COPY api/pyproject.toml apis/api/pyproject.toml
 COPY uv.lock pyproject.toml .
 
-RUN uv sync --all-packages
+RUN uv sync --all-packages --no-dev
 
 FROM deps AS runner
 ENV TZ=UTC

@@ -29,11 +29,29 @@ jobs:
 
       - name: bun run build
         run: bun -F ./apps/front -F ./apps/admin build
+  changepacks:
+    name: changepacks
+    runs-on: ubuntu-latest
+    permissions:
+      # create pull request comments
+      pull-requests: write
 
+      # Actions > General > Workflow permissions for creating pull request
+      # Create brench to create pull request
+      contents: write
+    needs:
+      - check
+    steps:
+      - uses: actions/checkout@v5
+      - uses: changepacks/action@main
+        id: changepacks
+    outputs:
+      changepacks: ${{ steps.changepacks.outputs.changepacks }}
   deploy:
-    if: github.ref == 'refs/heads/main'
+    name: deploy
+    needs: changepacks
+    if: contains(needs.changepacks.outputs.changepacks, 'package.json') || github.ref == 'refs/heads/dev'
     runs-on: self-hosted
-    needs: check
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

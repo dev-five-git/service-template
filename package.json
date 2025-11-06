@@ -1,26 +1,27 @@
 {
-    "version": "1.0.0",
-    "description": "service-template",
-    "type": "module",
-    "devDependencies": {
-        "eslint-plugin-devup": "^2.0",
-        "eslint": "^9",
-        "lint-staged": "^16.2",
-        "husky": "^9.1"
-    },
-    "workspaces": [
-        "apps/*"
-    ],
-    "scripts": {
-        "prelint": "uv run ruff check .",
-        "lint": "eslint .",
-        "lint:fix": "eslint . --fix",
-        "prelint:fix": "uv run ruff check --fix .",
-        "test": "bun -F * test",
-        "dev": "bun -F * dev",
-        "api": "uv run --package api --directory apis/api uvicorn main:app --reload",
-        "preinstall": "uv sync --all-packages --group dev && uv run --directory apis/api python extract_openapi.py && bunx openapi-typescript ./apis/api/openapi.json --no-default-non-nullable -o ./schema.d.ts && cp ./schema.d.ts ./apps/front/schema.d.ts && cp ./schema.d.ts ./apps/admin/schema.d.ts",
-        "prepare": "husky"
-    },
-    "author": "devfive"
+  "version": "1.0.0",
+  "description": "service-template",
+  "type": "module",
+  "devDependencies": {
+    "eslint-plugin-devup": "^2.0",
+    "eslint": "^9",
+    "lint-staged": "^16.2",
+    "husky": "^9.1"
+  },
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "prelint": "uv run ruff check .",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prelint:fix": "uv run ruff check --fix .",
+    "test": "bun -F * test",
+    "dev": "bun -F * dev",
+    "api": "uv run --package api --directory apis/api uvicorn main:app --reload",
+    "preinstall": "uv sync --all-packages --group dev && uv run --directory apis/api python extract_openapi.py && bunx openapi-typescript ./apis/api/openapi.json --no-default-non-nullable -o ./schema.d.ts && cp ./schema.d.ts ./apps/front/schema.d.ts && cp ./schema.d.ts ./apps/admin/schema.d.ts",
+    "prepare": "husky",
+    "changepacks": "bunx @changepacks/cli"
+  },
+  "author": "devfive"
 }

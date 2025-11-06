@@ -1,0 +1,28 @@
+{
+  "apps": [
+    {
+      "name": "admin",
+      "cwd": "/app/apps/admin",
+      "script": "server.js",
+      "args": "start",
+      "env": {
+        "NODE_ENV": "production",
+        "PORT": 3001
+      },
+      "instances": 1,
+      "exec_mode": "cluster"
+    },
+    {
+      "name": "front",
+      "cwd": "/app/apps/front",
+      "script": "server.js",
+      "args": "start",
+      "env": {
+        "NODE_ENV": "production",
+        "PORT": 3000
+      },
+      "instances": 1,
+      "exec_mode": "cluster"
+    }
+  ]
+}

@@ -21,14 +21,17 @@ jobs:
 
       - uses: oven-sh/setup-bun@v2
 
-      - name: bun install
+      - name: Install dependencies
         run: bun install
 
-      - name: bun run lint
-        run: bun -F ./apps/front -F ./apps/admin lint
+      - name: Lint
+        run: bun run lint
 
-      - name: bun run build
-        run: bun -F ./apps/front -F ./apps/admin build
+      - name: Test
+        run: bun run test
+
+      - name: Build
+        run: bun run build
   changepacks:
     name: changepacks
     runs-on: ubuntu-latest

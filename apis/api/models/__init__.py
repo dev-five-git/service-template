@@ -7,7 +7,7 @@ sqlite_url = f"sqlite:///{sqlite_file_name}"
 
 
 def create_tables():
-    auto_import()
+    auto_import("models")
     engine = create_engine(sqlite_url, echo=True)
 
     SQLModel.metadata.create_all(engine)

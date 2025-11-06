@@ -9,6 +9,4 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default DevupUI(nextConfig, {
-  include: ['@devup-ui/reset-css', '@devup-ui/components'],
-})
+export default DevupUI(nextConfig)

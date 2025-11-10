@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['@devup-ui/reset-css', '@devup-ui/components'],
   },
+  reactCompiler: true,
 }
 
 export default DevupUI(nextConfig)

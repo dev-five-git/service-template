@@ -10,7 +10,7 @@
         "PORT": 3001
       },
       "instances": 1,
-      "exec_mode": "cluster"
+      "exec_mode": "fork"
     },
     {
       "name": "front",
@@ -22,7 +22,7 @@
         "PORT": 3000
       },
       "instances": 1,
-      "exec_mode": "cluster"
+      "exec_mode": "fork"
     }
   ]
 }

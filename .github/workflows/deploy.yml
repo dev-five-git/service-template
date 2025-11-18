@@ -99,14 +99,9 @@ jobs:
         if: runner.os == 'macOS'
         run: |
           brew install hudochenkov/sshpass/sshpass
-      - name: Scp
-        run: |
-          sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no -P ${{ secrets.SSH_PORT }} ${{ github.ref_name }}.zip ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}:~/${{ github.repository }}/${{ github.ref_name }}.zip
       - name: ssh
         uses: appleboy/ssh-action@master
         env:
-          UV_INDEX_DEVFIVE_USERNAME: ${{ secrets.UV_INDEX_DEVFIVE_USERNAME }}
-          UV_INDEX_DEVFIVE_PASSWORD: ${{ secrets.UV_INDEX_DEVFIVE_PASSWORD }}
           PORT: ${{ secrets.PORT }}
           DOCKER_BUILDKIT: 1
           COMPOSE_DOCKER_CLI_BUILD: 1
@@ -116,7 +111,32 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
-          envs: UV_INDEX_DEVFIVE_USERNAME,UV_INDEX_DEVFIVE_PASSWORD,PORT,DOCKER_BUILDKIT,COMPOSE_DOCKER_CLI_BUILD
+          envs: PORT,DOCKER_BUILDKIT,COMPOSE_DOCKER_CLI_BUILD
+          script: |
+            echo "${{ secrets.SSH_PASSWORD }}" | sudo -S chmod -R 777 ~/"${{ github.repository }}"
+            BASE_DIR=~/"${{ github.repository }}"
+            EXTRACT_DIR="$BASE_DIR/${{ github.repository }}_${{ github.ref_name }}_tmp"
+            DIR="$BASE_DIR/${{ github.repository }}_${{ github.ref_name }}"
+
+            mkdir -p "$BASE_DIR"
+            mkdir -p "$EXTRACT_DIR"
+            mkdir -p "$DIR"
+      - name: Scp
+        run: |
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no -P ${{ secrets.SSH_PORT }} ${{ github.ref_name }}.zip ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}:~/${{ github.repository }}/${{ github.ref_name }}.zip
+      - name: ssh
+        uses: appleboy/ssh-action@master
+        env:
+          PORT: ${{ secrets.PORT }}
+          DOCKER_BUILDKIT: 1
+          COMPOSE_DOCKER_CLI_BUILD: 1
+        with:
+          command_timeout: 40m
+          host: ${{ secrets.SSH_HOSTNAME }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: ${{ secrets.SSH_PORT }}
+          envs: PORT,DOCKER_BUILDKIT,COMPOSE_DOCKER_CLI_BUILD
           script: |
             docker buildx create --name devfivebuilder --use
             docker buildx inspect --bootstrap

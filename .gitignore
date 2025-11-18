@@ -25,3 +25,6 @@ override.tf.json
 *_override.tf
 *_override.tf.json
 /target
+/coverage
+tarpaulin-report.html
+cobertura.xml

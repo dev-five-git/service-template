@@ -6,7 +6,14 @@
     "eslint-plugin-devup": "^2.0",
     "eslint": "^9",
     "lint-staged": "^16.2",
-    "husky": "^9.1"
+    "husky": "^9.1",
+    "@devup-ui/vite-plugin": "^1.0",
+    "vitest": "^4.0",
+    "@vitest/coverage-v8": "^4.0",
+    "@testing-library/jest-dom": "^6.9",
+    "@testing-library/react": "^16.3",
+    "@testing-library/user-event": "14.6",
+    "happy-dom": "^20.0"
   },
   "workspaces": [
     "apps/*"
@@ -17,7 +24,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prelint:fix": "cargo clippy --fix && cargo fmt --write-mode=diff && cargo check",
-    "test": "bun run --workspace test",
+    "test": "vitest test --coverage --run",
+    "posttest": "cargo tarpaulin --out xml --out stdout --out html --all-targets",
     "dev": "bun run --workspace dev",
     "api": "cargo run",
     "prepare": "husky",

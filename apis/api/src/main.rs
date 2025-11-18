@@ -5,12 +5,12 @@
 //! ```
 
 use axum::{
-    http::{HeaderValue, Method},
-    response::{Html, IntoResponse},
-    routing::get,
     Json, Router,
+    http::{HeaderValue, Method},
+    response::IntoResponse,
+    routing::get,
 };
-use std::net::SocketAddr;
+use std::{env, net::SocketAddr};
 use tower_http::cors::CorsLayer;
 
 #[tokio::main]
@@ -26,9 +26,12 @@ async fn main() {
             .allow_origin("http://localhost:3000".parse::<HeaderValue>().unwrap())
             .allow_methods([Method::GET]),
     );
-    serve(app,   4000).await;
-
-    backend.await;
+    let port = env::var("PORT")
+        .unwrap_or("8000".to_string())
+        .parse::<u16>()
+        .unwrap();
+    println!("API server is running on port {}", port);
+    serve(app, port).await;
 }
 
 async fn serve(app: Router, port: u16) {

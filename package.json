@@ -12,14 +12,14 @@
     "apps/*"
   ],
   "scripts": {
-    "prelint": "uv run ruff check .",
+    "prelint": "cargo clippy -- -D warnings && cargo fmt --check && cargo check",
     "build": "bun run --workspace build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "prelint:fix": "uv run ruff check --fix .",
+    "prelint:fix": "cargo clippy --fix && cargo fmt --write-mode=diff && cargo check",
     "test": "bun run --workspace test",
     "dev": "bun run --workspace dev",
-    "api": "uv run --package api --directory apis/api uvicorn main:app --reload",
+    "api": "cargo run",
     "prepare": "husky",
     "changepacks": "bunx @changepacks/cli"
   },

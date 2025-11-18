@@ -36,6 +36,7 @@ RUN apk add --no-cache curl
 EXPOSE 3000 3001
 
 COPY --from=builder /app/apps/admin/.next/standalone/node_modules /app/node_modules/
+COPY --from=builder /app/apps/front/.next/standalone/node_modules /app/node_modules/
 
 WORKDIR /app/apps/admin
 COPY --from=builder /app/apps/admin/.next/standalone/apps/admin ./

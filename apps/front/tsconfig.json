@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "types": ["vitest/importMeta", "vitest/globals"],
+    "types": [
+      "vitest/importMeta",
+      "vitest/globals"
+    ],
     "lib": [
       "dom",
       "dom.iterable",
@@ -46,7 +49,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "df/*.d.ts"
+    "df/*.d.ts",
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

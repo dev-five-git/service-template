@@ -20,13 +20,13 @@
   ],
   "scripts": {
     "prelint": "cargo clippy -- -D warnings && cargo fmt --check && cargo check",
-    "build": "bun run --workspace build",
+    "build": "bun run --workspaces build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prelint:fix": "cargo clippy --fix && cargo fmt --write-mode=diff && cargo check",
     "test": "vitest test --coverage --run",
     "posttest": "cargo tarpaulin --out xml --out stdout --out html --all-targets",
-    "dev": "bun run --workspace dev",
+    "dev": "bun run --workspaces dev",
     "api": "cargo run",
     "prepare": "husky",
     "changepacks": "bunx @changepacks/cli"

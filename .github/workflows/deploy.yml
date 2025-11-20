@@ -80,11 +80,11 @@ jobs:
           cp uv.lock ./apis/uv.lock
           cp pyproject.toml ./apis/pyproject.toml
           cp .dockerignore ./apis/.dockerignore
-          # app build
-          cp package.json ./apps/package.json
-          cp bun.lock ./apps/bun.lock
-          cp ecosystem.json ./apps/ecosystem.json
-          cp .dockerignore ./apps/.dockerignore
+
+          docker build -f Dockerfile.build-front -t build-front:latest .
+          CONTAINER_ID=$(docker create build-front:latest)
+          docker cp $CONTAINER_ID:/app/deploy.tar.gz ./deploy.tar.gz
+          tar -xzf deploy.tar.gz -C /app
           zip -r ${{ github.ref_name }}.zip . -x .git/**\* -x .github/**\* -x .gitignore
       - name: upload
         uses: actions/upload-artifact@v4

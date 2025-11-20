@@ -18,14 +18,15 @@
     "@devup-ui/reset-css": "^1"
   },
   "devDependencies": {
-    "eslint-plugin-devup": "^2",
-    "@tanstack/react-query-devtools": "^5.90",
     "@devup-ui/next-plugin": "^1",
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
+    "@tanstack/react-query-devtools": "^5.90",
     "@types/node": "^24",
     "@types/react": "^19",
+    "babel-plugin-react-compiler": "^1.0.0",
     "eslint": "^9",
     "eslint-config-next": "^16.0",
-    "@eslint/eslintrc": "^3"
+    "eslint-plugin-devup": "^2",
+    "typescript": "^5"
   }
 }

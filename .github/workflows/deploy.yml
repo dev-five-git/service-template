@@ -81,7 +81,6 @@ jobs:
           CONTAINER_ID=$(docker create build:latest)
           docker cp $CONTAINER_ID:/app/deploy.tar.gz ./deploy.tar.gz
           docker cp $CONTAINER_ID:/app/api.tar.gz ./api.tar.gz
-          tar -xzf deploy.tar.gz -C /app
 
           zip ${{ github.ref_name }}.zip api.tar.gz deploy.tar.gz docker-compose.yml Dockerfile.front Dockerfile.api
       - name: upload

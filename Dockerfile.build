@@ -27,7 +27,7 @@ COPY apps/front ./apps/front
 RUN bun run build
 
 # Production image, copy all the files and run next
-FROM base AS front-runner
+FROM base AS front-builder
 WORKDIR /app
 
 # Install PM2 globally and curl for health check

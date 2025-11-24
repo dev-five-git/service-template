@@ -77,17 +77,13 @@ jobs:
       - name: compress
         run: |
           # api build 
-          docker build -f Dockerfile.build-api -t build-api:latest .
-          CONTAINER_ID=$(docker create build-front:latest)
-          docker cp $CONTAINER_ID:/app/api.tar.gz ./api.tar.gz
-          tar -xzf api.tar.gz -C /app
-
-          docker build -f Dockerfile.build-front -t build-front:latest .
-          CONTAINER_ID=$(docker create build-front:latest)
+          docker build -f Dockerfile.build -t build:latest .
+          CONTAINER_ID=$(docker create build:latest)
           docker cp $CONTAINER_ID:/app/deploy.tar.gz ./deploy.tar.gz
+          docker cp $CONTAINER_ID:/app/api.tar.gz ./api.tar.gz
           tar -xzf deploy.tar.gz -C /app
 
-          zip -r ${{ github.ref_name }}.zip . -x .git/**\* -x .github/**\* -x .gitignore
+          zip ${{ github.ref_name }}.zip api.tar.gz deploy.tar.gz docker-compose.yml Dockerfile.front Dockerfile.api
       - name: upload
         uses: actions/upload-artifact@v4
         with:

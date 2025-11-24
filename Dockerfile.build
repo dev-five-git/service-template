@@ -27,7 +27,7 @@ COPY apps/front ./apps/front
 RUN bun run build
 
 # Production image, copy all the files and run next
-FROM base AS runner
+FROM base AS front-runner
 WORKDIR /app
 
 # Install PM2 globally and curl for health check
@@ -53,3 +53,30 @@ WORKDIR /app
 COPY ecosystem.json ./ecosystem.json
 
 RUN tar --exclude='.git' --exclude='.github' --exclude='.gitignore' -czf deploy.tar.gz .
+
+FROM rust:1.91-alpine AS api-builder
+RUN apk add --no-cache musl-dev
+WORKDIR /app
+
+# Copy dependency files first for better caching
+COPY Cargo.lock Cargo.toml ./
+COPY apis/api/Cargo.toml ./apis/api/
+
+# Build dependencies only (this layer will be cached if dependencies don't change)
+RUN mkdir -p apis/api/src && \
+    echo "fn main() {}" > apis/api/src/main.rs && \
+    cargo build --release && \
+    rm -rf apis/api/src
+
+# Copy actual source code
+COPY apis/api/src ./apis/api/src
+
+# Build the actual application (only rebuilds if source changed)
+RUN cargo build --release
+
+RUN tar -czf api.tar.gz -C /app/target/release api
+
+FROM alpine AS result
+WORKDIR /app
+COPY --from=front-builder /app/deploy.tar.gz ./deploy.tar.gz
+COPY --from=api-builder /app/api.tar.gz ./api.tar.gz

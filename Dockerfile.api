@@ -1,17 +1,6 @@
-FROM python:3.14-alpine AS deps
-FROM deps AS builder
+FROM alpine AS runner
 WORKDIR /app
-RUN pip install uv
-COPY api/pyproject.toml apis/api/pyproject.toml
-COPY uv.lock pyproject.toml .
-
-RUN uv sync --all-packages --no-dev
-
-FROM deps AS runner
-ENV TZ=UTC
-RUN pip3 install gunicorn uvicorn
+COPY api.tar.gz ./api.tar.gz
+RUN tar -xzf api.tar.gz -C /app
 EXPOSE 8000
-WORKDIR /app
-COPY --from=builder /app/.venv/lib/python3.14/site-packages /usr/local/lib/python3.14/site-packages
-COPY api/ ./
-CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "main:app", "--bind", "0.0.0.0:8000"]
+CMD ["./api"]

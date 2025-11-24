@@ -77,9 +77,10 @@ jobs:
       - name: compress
         run: |
           # api build 
-          cp uv.lock ./apis/uv.lock
-          cp pyproject.toml ./apis/pyproject.toml
-          cp .dockerignore ./apis/.dockerignore
+          docker build -f Dockerfile.build-api -t build-api:latest .
+          CONTAINER_ID=$(docker create build-front:latest)
+          docker cp $CONTAINER_ID:/app/api.tar.gz ./api.tar.gz
+          tar -xzf api.tar.gz -C /app
 
           docker build -f Dockerfile.build-front -t build-front:latest .
           CONTAINER_ID=$(docker create build-front:latest)

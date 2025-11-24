@@ -1,0 +1,22 @@
+FROM rust:1.91-alpine AS base
+RUN apk add --no-cache musl-dev
+WORKDIR /app
+
+# Copy dependency files first for better caching
+COPY Cargo.lock Cargo.toml ./
+COPY apis/api/Cargo.toml ./apis/api/
+
+# Build dependencies only (this layer will be cached if dependencies don't change)
+RUN mkdir -p apis/api/src && \
+    echo "fn main() {}" > apis/api/src/main.rs && \
+    cargo build --release && \
+    rm -rf apis/api/src
+
+# Copy actual source code
+COPY apis/api/src ./apis/api/src
+
+# Build the actual application (only rebuilds if source changed)
+RUN cargo build --release
+
+
+RUN tar -czf api.tar.gz -C /app/target/release api

@@ -82,12 +82,12 @@ jobs:
           docker cp $CONTAINER_ID:/app/deploy.tar.gz ./deploy.tar.gz
           docker cp $CONTAINER_ID:/app/api.tar.gz ./api.tar.gz
 
-          zip ${{ github.ref_name }}.zip api.tar.gz deploy.tar.gz docker-compose.yml Dockerfile.front Dockerfile.api nginx.conf
+          zip deploy.zip api.tar.gz deploy.tar.gz docker-compose.yml Dockerfile.front Dockerfile.api nginx.conf
       - name: upload
         uses: actions/upload-artifact@v4
         with:
           name: deploy
-          path: ${{ github.ref_name }}.zip
+          path: deploy.zip
           retention-days: 1
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@main
@@ -120,7 +120,7 @@ jobs:
             mkdir -p "$DIR"
       - name: Scp
         run: |
-          sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no -P ${{ secrets.SSH_PORT }} ${{ github.ref_name }}.zip ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}:~/${{ github.repository }}/${{ github.ref_name }}.zip
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no -P ${{ secrets.SSH_PORT }} deploy.zip ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}:~/${{ github.repository }}/deploy.zip
       - name: ssh
         uses: appleboy/ssh-action@master
         env:
@@ -155,7 +155,7 @@ jobs:
 
             # 압축 해제
             mkdir -p "$EXTRACT_DIR"
-            unzip -o -q "$BASE_DIR/${{ github.ref_name }}.zip" -d "$EXTRACT_DIR"
+            unzip -o -q "$BASE_DIR/deploy.zip" -d "$EXTRACT_DIR"
 
             # build 진행해서 캐싱 시작, 기존 서버가 켜져있을 때 build 시작
             cd "$EXTRACT_DIR"
@@ -172,8 +172,8 @@ jobs:
 
             mkdir -p "$DIR"
             # 선행 빌드로 인한 캐시가 존재해야함
-            unzip -o -q "$BASE_DIR/${{ github.ref_name }}.zip" -d "$DIR"
-            rm -f "$BASE_DIR/${{ github.ref_name }}.zip"
+            unzip -o -q "$BASE_DIR/deploy.zip" -d "$DIR"
+            rm -f "$BASE_DIR/deploy.zip"
 
             cd "$DIR"
             # 새 컨테이너 실행

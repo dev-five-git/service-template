@@ -76,7 +76,7 @@ jobs:
         if: github.ref_name != 'main'
       - name: compress
         run: |
-          # api build 
+          # build 
           docker build -f Dockerfile.build -t build:latest .
           CONTAINER_ID=$(docker create build:latest)
           docker cp $CONTAINER_ID:/app/deploy.tar.gz ./deploy.tar.gz

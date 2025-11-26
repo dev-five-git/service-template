@@ -1,5 +1,3 @@
-use vespera;
-
 fn main() {
     // Generate OpenAPI JSON using vespera
     let json = vespera::vespera_openapi!();

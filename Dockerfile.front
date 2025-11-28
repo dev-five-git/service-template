@@ -7,6 +7,6 @@ EXPOSE 3000 3001
 
 COPY deploy.tar.gz ./deploy.tar.gz
 
-RUN tar -xzf deploy.tar.gz -C /app
+RUN tar -xzf deploy.tar.gz -C /app && rm -f deploy.tar.gz
 
 CMD ["pm2-runtime", "start", "ecosystem.json"]

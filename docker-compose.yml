@@ -39,7 +39,7 @@ services:
     env_file:
       - path: apis/api/.env
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://api:8000/health')"]
+      test: ["CMD", "sh", "-c", "curl -f http://api:8000 || exit 1"]
       interval: 5s
       timeout: 5s
       retries: 5

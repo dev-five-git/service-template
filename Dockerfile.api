@@ -1,6 +1,7 @@
-FROM alpine AS runner
+FROM alpine
 WORKDIR /app
+RUN apk add --no-cache curl
 COPY api.tar.gz ./api.tar.gz
-RUN tar -xzf api.tar.gz -C /app
+RUN tar -xzf api.tar.gz && rm -f api.tar.gz
 EXPOSE 8000
 CMD ["./api"]

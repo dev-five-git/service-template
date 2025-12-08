@@ -1,6 +1,6 @@
 services:
   nginx:
-    image: nginx
+    image: nginx:alpine
     restart: always
     ports:
       - ${PORT:-80}:80

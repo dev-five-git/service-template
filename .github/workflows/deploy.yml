@@ -58,7 +58,7 @@ jobs:
   deploy:
     name: deploy
     needs: changepacks
-    if: needs.check.result == 'success' && (contains(needs.changepacks.outputs.changepacks, 'package.json') || github.ref_name == 'dev')
+    if: always() && (needs.changepacks.result == 'success' && contains(needs.changepacks.outputs.changepacks, 'package.json') || github.ref_name == 'dev')
     runs-on: self-hosted
     environment: ${{ github.ref_name == 'main' && 'PROD' || 'DEV' }}
     steps:

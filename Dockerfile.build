@@ -49,7 +49,7 @@ WORKDIR /app
 # Create ecosystem file
 COPY ecosystem.json ./ecosystem.json
 
-RUN tar --exclude='.git' --exclude='.github' --exclude='.gitignore' -czf deploy.tar.gz .
+RUN tar --exclude='.git' --exclude='.github' --exclude='.gitignore' -czf front.tar.gz .
 
 FROM rust:1.91-alpine AS api-builder
 RUN apk add --no-cache musl-dev
@@ -75,5 +75,5 @@ RUN tar -czf api.tar.gz -C /app/target/release api
 
 FROM alpine AS result
 WORKDIR /app
-COPY --from=front-builder /app/deploy.tar.gz ./deploy.tar.gz
+COPY --from=front-builder /app/front.tar.gz ./front.tar.gz
 COPY --from=api-builder /app/api.tar.gz ./api.tar.gz

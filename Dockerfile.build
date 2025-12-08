@@ -30,9 +30,6 @@ RUN bun run build
 FROM base AS front-builder
 WORKDIR /app
 
-# Install PM2 globally and curl for health check
-RUN bun install -g pm2
-RUN apk add --no-cache curl
 EXPOSE 3000 3001
 
 COPY --from=builder /app/apps/admin/.next/standalone/node_modules /app/node_modules/

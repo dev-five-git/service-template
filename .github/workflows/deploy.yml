@@ -65,7 +65,6 @@ jobs:
   changepacks:
     name: changepacks
     runs-on: ubuntu-latest
-    if: github.ref_name == 'main'
     permissions:
       # create pull request comments
       pull-requests: write

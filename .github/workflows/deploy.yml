@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}
@@ -14,7 +15,21 @@ concurrency:
 
 jobs:
   check:
-    runs-on: self-hosted
+    runs-on:
+      group: default
+      labels: linux
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -23,15 +38,26 @@ jobs:
           node-version: 24
 
       - uses: oven-sh/setup-bun@v2
-
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
       - name: Install dependencies
         run: bun install
+        env:
+          UV_INDEX_DEVFIVE_USERNAME: ${{ secrets.UV_INDEX_DEVFIVE_USERNAME }}
+          UV_INDEX_DEVFIVE_PASSWORD: ${{ secrets.UV_INDEX_DEVFIVE_PASSWORD }}
 
       - name: Lint
         run: bun run lint
 
       - name: Test
         run: bun run test
+        env:
+          DB_SCHEMA: public
+          DB_URL: localhost
+          DB_PORT: ${{ job.services.postgres.ports[5432] }}
+          DB_ID: postgres
+          DB_PW: postgres
+          DB_DB: postgres
 
       - name: Build
         run: bun run build
@@ -39,6 +65,7 @@ jobs:
   changepacks:
     name: changepacks
     runs-on: ubuntu-latest
+    if: github.ref_name == 'main'
     permissions:
       # create pull request comments
       pull-requests: write
@@ -57,10 +84,10 @@ jobs:
 
   deploy:
     name: deploy
-    needs: changepacks
-    if: always() && (needs.changepacks.result == 'success' && contains(needs.changepacks.outputs.changepacks, 'package.json') || github.ref_name == 'dev')
+    needs: [check, changepacks]
+    if: (needs.changepacks.result == 'success' && contains(needs.changepacks.outputs.changepacks, 'package.json')) || github.ref_name == 'dev' || github.event_name == 'workflow_dispatch'
     runs-on: self-hosted
-    environment: ${{ github.ref_name == 'main' && 'PROD' || 'DEV' }}
+    environment: ${{ (contains(needs.changepacks.outputs.changepacks, 'package.json') || github.event_name == 'workflow_dispatch') && 'PROD' || 'DEV' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -73,7 +100,7 @@ jobs:
           secrets: ${{ toJson(secrets) }}
       - name: Overwrite .env
         uses: dev-five-git/overwrite-env-file-action@main
-        if: github.ref_name != 'main'
+        if: ${{ !(contains(needs.changepacks.outputs.changepacks, 'package.json') || github.event_name == 'workflow_dispatch') }}
       - name: compress
         run: |
           # build 
@@ -83,7 +110,6 @@ jobs:
           docker cp $CONTAINER_ID:/app/api.tar.gz ./api.tar.gz
 
           tar -czf deploy.tar.gz api.tar.gz front.tar.gz docker-compose.yml Dockerfile.front Dockerfile.api nginx.conf
-
       - name: upload
         uses: actions/upload-artifact@v4
         with:
@@ -119,7 +145,7 @@ jobs:
             mkdir -p "$DIR"
       - name: Scp
         run: |
-          sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no -P ${{ secrets.SSH_PORT }} deploy.zip ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}:~/${{ github.repository }}/deploy.tar.gz
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no -P ${{ secrets.SSH_PORT }} deploy.tar.gz ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}:~/${{ github.repository }}/deploy.tar.gz
       - name: ssh
         uses: appleboy/ssh-action@master
         env:
@@ -155,3 +181,6 @@ jobs:
 
             cd "$DIR"
             docker compose up -d --build
+
+            rm -f "$DIR/front.tar.gz"
+            rm -f "$DIR/api.tar.gz"

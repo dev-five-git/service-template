@@ -140,8 +140,8 @@ jobs:
             BASE_DIR=~/"${{ github.repository }}"
             DIR="$BASE_DIR/${{ github.repository }}_${{ github.ref_name }}"
 
-            mkdir -p "$BASE_DIR"
             mkdir -p "$DIR"
+            rm -rf "$BASE_DIR/deploy.tar.gz"
       - name: Scp
         run: |
           sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no -P ${{ secrets.SSH_PORT }} deploy.tar.gz ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}:~/${{ github.repository }}/deploy.tar.gz

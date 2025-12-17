@@ -1,7 +1,7 @@
-FROM oven/bun:alpine
+FROM node:25-alpine
 WORKDIR /app
 
-RUN bun install -g pm2
+RUN npm install -g pm2
 RUN apk add --no-cache curl
 EXPOSE 3000 3001
 

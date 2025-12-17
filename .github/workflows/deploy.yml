@@ -105,7 +105,7 @@ jobs:
           docker cp $CONTAINER_ID:/app/front.tar.gz ./front.tar.gz
           docker cp $CONTAINER_ID:/app/api.tar.gz ./api.tar.gz
 
-          tar -czf deploy.tar.gz api.tar.gz front.tar.gz docker-compose.yml Dockerfile.front Dockerfile.api nginx.conf
+          tar -czf deploy.tar.gz api.tar.gz front.tar.gz docker-compose.yml Dockerfile.front Dockerfile.api nginx.conf apis/api/.env
       - name: upload
         uses: actions/upload-artifact@v4
         with:

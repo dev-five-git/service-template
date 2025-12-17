@@ -135,7 +135,7 @@ jobs:
           script: |
             echo "${{ secrets.SSH_PASSWORD }}" | sudo -S chmod -R 777 ~/"${{ github.repository }}"
             BASE_DIR=~/"${{ github.repository }}"
-            DIR="$BASE_DIR/${{ github.repository }}_${{ github.ref_name }}"
+            DIR="$BASE_DIR/${{ github.repository }}
 
             mkdir -p "$DIR"
             rm -rf "$BASE_DIR/deploy.tar.gz"
@@ -162,7 +162,7 @@ jobs:
             echo "${{ secrets.SSH_PASSWORD }}" | sudo -S chmod -R 777 ~/"${{ github.repository }}"
 
             BASE_DIR=~/"${{ github.repository }}"
-            DIR="$BASE_DIR/${{ github.repository }}_${{ github.ref_name }}"
+            DIR="$BASE_DIR/${{ github.repository }}
 
             mkdir -p "$BASE_DIR"
             mkdir -p "$DIR"

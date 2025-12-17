@@ -42,9 +42,6 @@ jobs:
         uses: astral-sh/setup-uv@v6
       - name: Install dependencies
         run: bun install
-        env:
-          UV_INDEX_DEVFIVE_USERNAME: ${{ secrets.UV_INDEX_DEVFIVE_USERNAME }}
-          UV_INDEX_DEVFIVE_PASSWORD: ${{ secrets.UV_INDEX_DEVFIVE_PASSWORD }}
 
       - name: Lint
         run: bun run lint

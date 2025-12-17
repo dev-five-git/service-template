@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - main
+      - dev
   workflow_dispatch:
 
 concurrency:
@@ -81,7 +82,7 @@ jobs:
   deploy:
     name: deploy
     needs: [check, changepacks]
-    if: (needs.changepacks.result == 'success' && contains(needs.changepacks.outputs.changepacks, 'package.json')) || github.ref_name == 'dev' || github.event_name == 'workflow_dispatch'
+    if: (needs.changepacks.result == 'success' && contains(needs.changepacks.outputs.changepacks, 'package.json')) || github.ref_name == 'dev' || github.ref_name == 'main' || github.event_name == 'workflow_dispatch'
     runs-on: self-hosted
     environment: ${{ (contains(needs.changepacks.outputs.changepacks, 'package.json') || github.event_name == 'workflow_dispatch') && 'PROD' || 'DEV' }}
     steps:
@@ -133,12 +134,10 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           envs: PORT,DOCKER_BUILDKIT,COMPOSE_DOCKER_CLI_BUILD
           script: |
-            echo "${{ secrets.SSH_PASSWORD }}" | sudo -S chmod -R 777 ~/"${{ github.repository }}"
-            BASE_DIR=~/"${{ github.repository }}"
-            DIR="$BASE_DIR/${{ github.repository }}
-
+            DIR=~/"${{ github.repository }}"
             mkdir -p "$DIR"
-            rm -rf "$BASE_DIR/deploy.tar.gz"
+            echo "${{ secrets.SSH_PASSWORD }}" | sudo -S chmod -R 777 "$DIR"
+            rm -rf "$DIR/deploy.tar.gz"
       - name: Scp
         run: |
           sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no -P ${{ secrets.SSH_PORT }} deploy.tar.gz ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}:~/${{ github.repository }}/deploy.tar.gz
@@ -156,24 +155,20 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           envs: PORT,DOCKER_BUILDKIT,COMPOSE_DOCKER_CLI_BUILD
           script: |
+            set -e
             docker buildx create --name devfivebuilder --use
             docker buildx inspect --bootstrap
 
-            echo "${{ secrets.SSH_PASSWORD }}" | sudo -S chmod -R 777 ~/"${{ github.repository }}"
-
-            BASE_DIR=~/"${{ github.repository }}"
-            DIR="$BASE_DIR/${{ github.repository }}
-
-            mkdir -p "$BASE_DIR"
-            mkdir -p "$DIR"
+            DIR=~/"${{ github.repository }}"
+            echo "${{ secrets.SSH_PASSWORD }}" | sudo -S chmod -R 777 "$DIR"
 
             # build 진행해서 캐싱 시작, 기존 서버가 켜져있을 때 build 시작
             cd "$DIR"
 
             docker compose down --rmi all
 
-            tar -xzf "$BASE_DIR/deploy.tar.gz" -C "$DIR"
-            rm -f "$BASE_DIR/deploy.tar.gz"
+            tar -xzf "$DIR/deploy.tar.gz" -C "$DIR"
+            rm -f "$DIR/deploy.tar.gz"
 
             cd "$DIR"
             docker compose up -d --build

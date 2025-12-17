@@ -156,7 +156,10 @@ jobs:
           envs: PORT,DOCKER_BUILDKIT,COMPOSE_DOCKER_CLI_BUILD
           script: |
             set -e
-            docker buildx create --name devfivebuilder --use
+            docker buildx inspect devfivebuilder >/dev/null 2>&1 \
+              || docker buildx create --name devfivebuilder --use
+
+            docker buildx use devfivebuilder
             docker buildx inspect --bootstrap
 
             DIR=~/"${{ github.repository }}"

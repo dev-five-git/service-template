@@ -28,3 +28,5 @@ override.tf.json
 /coverage
 tarpaulin-report.html
 cobertura.xml
+
+.claude

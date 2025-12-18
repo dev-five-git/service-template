@@ -64,7 +64,7 @@ RUN mkdir -p apis/api/src && \
     rm -rf apis/api/src
 
 # Copy actual source code
-COPY apis/api/src ./apis/api/src
+COPY apis/api ./apis/api
 
 # Build the actual application (only rebuilds if source changed)
 RUN cargo build --release

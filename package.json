@@ -5,7 +5,6 @@
   "devDependencies": {
     "eslint-plugin-devup": "^2.0",
     "eslint": "^9",
-    "lint-staged": "^16.2",
     "husky": "^9.1",
     "@devup-ui/vite-plugin": "^1.0",
     "vitest": "^4.0",

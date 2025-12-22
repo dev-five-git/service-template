@@ -49,7 +49,7 @@ COPY ecosystem.json ./ecosystem.json
 
 RUN tar --exclude='.git' --exclude='.github' --exclude='.gitignore' -czf front.tar.gz .
 
-FROM rust:1.91-alpine AS api-builder
+FROM --platform=linux/amd64 rust:1.91-alpine AS api-builder
 RUN apk add --no-cache musl-dev
 WORKDIR /app
 

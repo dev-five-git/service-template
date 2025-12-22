@@ -1,3 +1,4 @@
+import { devupApi } from '@devup-api/next-plugin'
 import { DevupUI } from '@devup-ui/next-plugin'
 import type { NextConfig } from 'next'
 
@@ -10,4 +11,4 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
 }
 
-export default DevupUI(nextConfig)
+export default DevupUI(devupApi(nextConfig))

@@ -1,25 +1,24 @@
+mod config;
 mod routes;
+mod utils;
 
-use api::{
+use crate::{
     config::{Config, create_db_connection},
     utils::AppState,
 };
-use std::{env, net::SocketAddr};
+use std::net::SocketAddr;
 use tower_http::cors::CorsLayer;
 use vespera::axum::http::{HeaderValue, Method};
 
 #[tokio::main]
 async fn main() {
     let config = Config::from_env();
-    let port = env::var("PORT")
-        .unwrap_or("8000".to_string())
-        .parse::<u16>()
-        .unwrap();
 
     let db = create_db_connection(&config.database_url).await;
-    vespertide::vespertide_migration!(&db).await.unwrap();
-
     let state = AppState { db, config };
+    let port = state.config.port;
+    vespertide::vespertide_migration!(&state.db).await.unwrap();
+
     let app = vespera::vespera!(openapi = ["apps/front/openapi.json", "apps/admin/openapi.json"])
         .with_state(state)
         .layer(

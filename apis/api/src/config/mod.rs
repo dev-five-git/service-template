@@ -4,6 +4,7 @@ use std::env;
 #[derive(Clone)]
 pub struct Config {
     pub database_url: String,
+    #[allow(dead_code)]
     pub jwt_secret: String,
     pub port: u16,
 }

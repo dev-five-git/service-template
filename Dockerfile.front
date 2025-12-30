@@ -2,7 +2,6 @@ FROM node:25-alpine
 WORKDIR /app
 
 RUN npm install -g pm2
-RUN apk add --no-cache curl
 EXPOSE 3000 3001
 
 COPY front.tar.gz ./front.tar.gz

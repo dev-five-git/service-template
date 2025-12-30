@@ -22,7 +22,7 @@ services:
       - "3000:3000"
       - "3001:3001"
     healthcheck:
-      test: ["CMD", "sh", "-c", "curl -f http://node:3000 || exit 1"]
+      test: ["CMD", "sh", "-c", "wget -q --spider http://node:3000 || exit 1"]
       interval: 5s
       timeout: 10s
       retries: 5
@@ -39,7 +39,7 @@ services:
     env_file:
       - path: apis/api/.env
     healthcheck:
-      test: ["CMD", "sh", "-c", "curl -f http://api:8000/health || exit 1"]
+      test: ["CMD", "sh", "-c", "wget -q --spider http://api:8000/health || exit 1"]
       interval: 5s
       timeout: 5s
       retries: 5

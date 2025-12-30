@@ -5,13 +5,11 @@ edition = "2024"
 publish = false
 
 [dependencies]
-vespera = "0.1.16"
+vespera = "0.1.17"
 tokio = { version = "1.48", features = ["full"] }
 tower-http = { version = "0.6", features = ["cors"] }
-sea-orm = { version = "2.0.0-rc.21", features = ["runtime-tokio-rustls", "sqlx-postgres", "macros", "chrono", "uuid"] }
+sea-orm = { version = "2.0.0-rc.26", features = ["runtime-tokio-rustls", "sqlx-postgres", "sqlx-sqlite", "macros", "chrono", "uuid"] }
+vespertide = "0.1.20"
 
 [build-dependencies]
-vespera = "0.1.16"
-
-[dev-dependencies]
-sea-orm = { version = "2.0.0-rc.21", features = ["runtime-tokio-rustls", "sqlx-postgres", "sqlx-sqlite", "macros", "chrono", "uuid"] }
+vespera = "0.1.17"

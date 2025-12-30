@@ -17,6 +17,7 @@ async fn main() {
         .unwrap();
 
     let db = create_db_connection(&config.database_url).await;
+    vespertide::vespertide_migration!(&db).await.unwrap();
 
     let state = AppState { db, config };
     let app = vespera::vespera!(openapi = ["apps/front/openapi.json", "apps/admin/openapi.json"])
@@ -34,7 +35,8 @@ async fn main() {
                 .allow_headers([
                     vespera::axum::http::header::CONTENT_TYPE,
                     vespera::axum::http::header::AUTHORIZATION,
-                ]),
+                ])
+                .allow_credentials(true),
         );
 
     let addr = SocketAddr::from(([0, 0, 0, 0], port));

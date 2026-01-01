@@ -6,7 +6,7 @@
     "eslint-plugin-devup": "^2.0",
     "eslint": "^9",
     "husky": "^9.1",
-    "bun-test-env-dom": "0.0.4"
+    "bun-test-env-dom": "^1.0"
   },
   "workspaces": [
     "apps/*"

@@ -2,8 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "types": [
-      "vitest/importMeta",
-      "vitest/globals"
+      "bun"
     ],
     "lib": [
       "dom",

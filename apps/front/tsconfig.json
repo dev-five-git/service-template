@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "types": [
-      "vitest/importMeta",
-      "vitest/globals"
-    ],
     "lib": [
       "dom",
       "dom.iterable",

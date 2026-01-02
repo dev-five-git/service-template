@@ -16,7 +16,7 @@
     "build": "bun run -F ./apps/front build && bun run -F ./apps/admin build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "prelint:fix": "cargo clippy --fix && cargo fmt --write-mode=diff && cargo check",
+    "prelint:fix": "cargo clippy --fix --allow-dirty && cargo fmt && cargo check",
     "test": "bun test",
     "posttest": "cargo tarpaulin --out xml --out stdout --out html --all-targets",
     "dev": "bun run --workspaces dev",

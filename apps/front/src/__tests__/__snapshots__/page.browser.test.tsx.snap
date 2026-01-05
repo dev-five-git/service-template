@@ -7,3 +7,9 @@ exports[`HomePage should render 1`] = `
   </script>
 </div>"
 `;
+
+exports[`HomePage should render 2`] = `
+"<div class="background-0-red--255 color-0-white--255">
+  HomePage
+</div>"
+`;

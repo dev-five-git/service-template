@@ -4,6 +4,7 @@
   "workspaces": {
     "": {
       "devDependencies": {
+        "@devup-ui/bun-plugin": "^1.0.1",
         "bun-test-env-dom": "^1.0",
         "eslint": "^9",
         "eslint-plugin-devup": "^2.0",
@@ -113,6 +114,8 @@
 
     "@devup-api/webpack-plugin": ["@devup-api/webpack-plugin@0.1.8", "", { "dependencies": { "@devup-api/core": "^0.1.10", "@devup-api/generator": "^0.1.12", "@devup-api/utils": "^0.1.6" } }, "sha512-pxwlgrNuSkXD/vZHWfRl0PcH4B5Sk2CGwDJQG/nBPuVY2eMskOEK17/CULVpZQfu+zHR6Z659uxhQ6CQGPJBsg=="],
 
+    "@devup-ui/bun-plugin": ["@devup-ui/bun-plugin@1.0.1", "", { "dependencies": { "@devup-ui/wasm": "^1.0.55" } }, "sha512-zCbQQjjwiCn29KDdQ+ygiGrbqud0ADRNEefICx3OEvvUq9yRyGm+d2II+4S/OJM+i/yeziWrfIv09zqvk+x4Kw=="],
+
     "@devup-ui/components": ["@devup-ui/components@0.1.38", "", { "dependencies": { "@devup-ui/react": "^1.0.30", "clsx": "^2.1", "csstype-extra": "latest", "react": "^19.2.3", "react-dom": "^19.2.3" } }, "sha512-ca6iovyJ3ebD66J4ooQOYX6dzdeFTaH6lJrwb42ZceV2z1TVRlLSdg+W0po00Xs6EOO8jS7DIOB+D+N6wsYZfQ=="],
 
     "@devup-ui/eslint-plugin": ["@devup-ui/eslint-plugin@1.0.6", "", { "dependencies": { "@typescript-eslint/utils": "^8.50", "typescript-eslint": "^8.50" } }, "sha512-6X1PwM8fNDuEUOQCEt/ZVXPUToLJtK8cqp0Dc+BxOappB8xmj3ve9wVGfb9c8dg34chUwQahm3lVkuvVg0VV7Q=="],
@@ -123,7 +126,7 @@
 
     "@devup-ui/reset-css": ["@devup-ui/reset-css@1.0.19", "", { "dependencies": { "@devup-ui/react": "^1.0.30" } }, "sha512-HOD1qTPJyzhM8vZnZ23VHkpe79RrxRLYQipX3eUFDwDxiVhHzWLLcNvCemjEm7SS/1lfOTfrQtulakXKhz17hg=="],
 
-    "@devup-ui/wasm": ["@devup-ui/wasm@1.0.54", "", {}, "sha512-mHKeZPAsZFjuzvGxwJ4ue2POqpWVcNb5FoOVzZg01SKDR/gQl3xDaWA3wh0NgUHcTLO+5k6CVWzlRCWtRfkugQ=="],
+    "@devup-ui/wasm": ["@devup-ui/wasm@1.0.55", "", {}, "sha512-7vDdcCT1v++T/ltdUQH1+uwJMvJnYcRcecUGcUSuksoPmbQPP9Vm1KJ1Tc23KxZxp99/Q8WbW6javdihb1m6iw=="],
 
     "@devup-ui/webpack-plugin": ["@devup-ui/webpack-plugin@1.0.51", "", { "dependencies": { "@devup-ui/wasm": "^1.0.54" } }, "sha512-Rog4ZfUPAmGxG2Yq83sepilyVOQs3rmhDwR1NFqO+cirELkJcH4bA3cGbZyOHz4Xb5ch/2ZHBsZhkfp0dknqMg=="],
 
@@ -1230,6 +1233,10 @@
     "zod-validation-error": ["zod-validation-error@4.0.2", "", { "peerDependencies": { "zod": "^3.25.0 || ^4.0.0" } }, "sha512-Q6/nZLe6jxuU80qb/4uJ4t5v2VEZ44lzQjPDhYJNztRQ4wyWc6VF3D3Kb/fAuPetZQnhS3hnajCf9CsWesghLQ=="],
 
     "zwitch": ["zwitch@2.0.4", "", {}, "sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A=="],
+
+    "@devup-ui/next-plugin/@devup-ui/wasm": ["@devup-ui/wasm@1.0.54", "", {}, "sha512-mHKeZPAsZFjuzvGxwJ4ue2POqpWVcNb5FoOVzZg01SKDR/gQl3xDaWA3wh0NgUHcTLO+5k6CVWzlRCWtRfkugQ=="],
+
+    "@devup-ui/webpack-plugin/@devup-ui/wasm": ["@devup-ui/wasm@1.0.54", "", {}, "sha512-mHKeZPAsZFjuzvGxwJ4ue2POqpWVcNb5FoOVzZg01SKDR/gQl3xDaWA3wh0NgUHcTLO+5k6CVWzlRCWtRfkugQ=="],
 
     "@eslint-community/eslint-utils/eslint-visitor-keys": ["eslint-visitor-keys@3.4.3", "", {}, "sha512-wpc+LXeiyiisxPlEkUzU6svyS1frIO3Mgxj1fdy7Pm8Ygzguax2N3Fa/D/ag1WqbOprdI+uY6wMUl8/a2G+iag=="],
 

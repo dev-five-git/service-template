@@ -1,3 +1,9 @@
+import { Box } from '@devup-ui/react'
+
 export default function HomePage() {
-  return <div>HomePage</div>
+  return (
+    <Box bg="red" color="white">
+      HomePage
+    </Box>
+  )
 }

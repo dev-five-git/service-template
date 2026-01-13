@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
     "target": "ESNext",
+    "types": [
+      "bun"
+    ],
     "lib": [
       "dom",
       "dom.iterable",

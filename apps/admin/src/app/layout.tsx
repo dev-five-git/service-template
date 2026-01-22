@@ -12,7 +12,7 @@ globalCss({
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html>
+    <html lang="ko">
       <head>
         <link
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"

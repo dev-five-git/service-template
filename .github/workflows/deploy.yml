@@ -92,13 +92,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-      - name: Build
-        run: |
-          # build 
-          docker build -f Dockerfile.build -t build:latest .
-          CONTAINER_ID=$(docker create build:latest)
-          docker cp $CONTAINER_ID:/app/front.tar.gz ./front.tar.gz
-          docker cp $CONTAINER_ID:/app/api.tar.gz ./api.tar.gz
       - name: Collect API environment variables
         uses: dev-five-git/collect-env-action@main
         with:
@@ -110,7 +103,14 @@ jobs:
         uses: dev-five-git/overwrite-env-file-action@main
         if: ${{ !(contains(needs.changepacks.outputs.changepacks, 'package.json') || github.event_name == 'workflow_dispatch') }}
       - name: Compress
-        run: tar -czf deploy.tar.gz api.tar.gz front.tar.gz docker-compose.yml Dockerfile.front Dockerfile.api nginx.conf apis/api/.env
+        run: |
+          docker build -f Dockerfile.build -t build:latest .
+          CONTAINER_ID=$(docker create build:latest)
+          docker cp $CONTAINER_ID:/app/front.tar.gz ./front.tar.gz
+          docker cp $CONTAINER_ID:/app/api.tar.gz ./api.tar.gz
+
+          tar -czf deploy.tar.gz api.tar.gz front.tar.gz docker-compose.yml Dockerfile.front Dockerfile.api nginx.conf apis/api/.env
+          # zip -r deploy.zip api.tar.gz front.tar.gz docker-compose.yml Dockerfile.front Dockerfile.api nginx.conf apis/api/.env
       - name: upload
         uses: actions/upload-artifact@v4
         with:

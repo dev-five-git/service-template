@@ -30,26 +30,27 @@ RUN bun run build
 FROM base AS front-builder
 WORKDIR /app
 
+# Create ecosystem file
+COPY ecosystem.json ./ecosystem.json
+
 COPY --from=builder /app/apps/admin/.next/standalone/node_modules /app/node_modules/
 COPY --from=builder /app/apps/front/.next/standalone/node_modules /app/node_modules/
+COPY --from=builder /app/apps/admin/public /app/apps/admin/public
+COPY --from=builder /app/apps/front/public /app/apps/front/public
 
 WORKDIR /app/apps/admin
 COPY --from=builder /app/apps/admin/.next/standalone/apps/admin ./
 COPY --from=builder /app/apps/admin/.next/static ./.next/static
-COPY --from=builder /app/apps/admin/public ./public
 
 WORKDIR /app/apps/front
 COPY --from=builder /app/apps/front/.next/standalone/apps/front ./
 COPY --from=builder /app/apps/front/.next/static ./.next/static
-COPY --from=builder /app/apps/front/public ./public
 
 WORKDIR /app
-# Create ecosystem file
-COPY ecosystem.json ./ecosystem.json
 
 RUN tar --exclude='.git' --exclude='.github' --exclude='.gitignore' -czf front.tar.gz .
 
-FROM --platform=linux/amd64 rust:1.92-alpine AS api-builder
+FROM rust:1.93-alpine AS api-builder
 RUN apk add --no-cache musl-dev
 WORKDIR /app
 

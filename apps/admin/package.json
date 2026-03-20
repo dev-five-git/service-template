@@ -10,9 +10,9 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.90",
+    "@tanstack/react-query": "^5.91",
     "react": "^19.2",
-    "next": "^16.1",
+    "next": "^16.2",
     "@devup-ui/react": "^1",
     "@devup-ui/components": "^0.1",
     "@devup-ui/reset-css": "^1",
@@ -22,14 +22,10 @@
   "devDependencies": {
     "@devup-ui/next-plugin": "^1",
     "@devup-api/next-plugin": "^0.1",
-    "@eslint/eslintrc": "^3",
     "@tanstack/react-query-devtools": "^5.91",
     "@types/node": "^25",
     "@types/react": "^19",
     "babel-plugin-react-compiler": "^1.0.0",
-    "eslint": "^9",
-    "eslint-config-next": "^16.1",
-    "eslint-plugin-devup": "^2",
     "typescript": "^5"
   }
 }

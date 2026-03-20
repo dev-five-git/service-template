@@ -2,5 +2,5 @@
 preload = ["bun-test-env-dom", "@devup-ui/bun-plugin"]
 coverage = true
 coverageSkipTestFiles = true
-coverageThreshold = 0.9999
+coverageThreshold = 1
 coverageReporter  = ["text", "lcov"] 

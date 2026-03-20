@@ -11,6 +11,10 @@ services:
         condition: service_healthy
       node:
         condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          memory: 128m
   node:
     build:
       dockerfile: Dockerfile.front
@@ -27,6 +31,10 @@ services:
       timeout: 10s
       retries: 5
       start_period: 5s
+    deploy:
+      resources:
+        limits:
+          memory: 1g
 
   api:
     build:
@@ -44,3 +52,7 @@ services:
       timeout: 5s
       retries: 5
       start_period: 5s
+    deploy:
+      resources:
+        limits:
+          memory: 512m

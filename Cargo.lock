@@ -1534,9 +1534,9 @@ checksum = "6877bb514081ee2a7ff5ef9de3281f14a4dd4bceac4c09388074a6b5df8a139a"
 
 [[package]]
 name = "mio"
-version = "1.1.1"
+version = "1.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a69bcab0ad47271a0234d9422b131806bf3968021e5dc9328caf2d4cd58557fc"
+checksum = "50b7e5b27aa02a74bac8c3f23f448f8d87ff11f92d3aac1a6ed369ee08cc56c1"
 dependencies = [
  "libc",
  "wasi",
@@ -2179,9 +2179,9 @@ dependencies = [
 
 [[package]]
 name = "sea-orm"
-version = "2.0.0-rc.37"
+version = "2.0.0-rc.38"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4b846dc1c7fefbea372c03765ff08307d68894bbad8c73b66176dcd53a3ee131"
+checksum = "9b5428ce6a0c8f6b9858df21ad1aa00c2fb94e1c9f344a0436bc855391e5a225"
 dependencies = [
  "async-stream",
  "async-trait",
@@ -2197,7 +2197,7 @@ dependencies = [
  "rust_decimal",
  "sea-orm-arrow",
  "sea-orm-macros",
- "sea-query 1.0.0-rc.31",
+ "sea-query 1.0.0-rc.33",
  "sea-query-sqlx",
  "sea-schema",
  "serde",
@@ -2218,15 +2218,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5c2eee8405f16c1f337fe3a83389361caea83c928d14dbd666a480407072c365"
 dependencies = [
  "arrow",
- "sea-query 1.0.0-rc.31",
+ "sea-query 1.0.0-rc.33",
  "thiserror",
 ]
 
 [[package]]
 name = "sea-orm-macros"
-version = "2.0.0-rc.37"
+version = "2.0.0-rc.38"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b449fe660e4d365f335222025df97ae01e670ef7ad788b3c67db9183b6cb0474"
+checksum = "ae1374d83dd5b43f14dcc90fc726486c556f4db774b680b12b8c680af76e8233"
 dependencies = [
  "heck 0.5.0",
  "itertools",
@@ -2250,9 +2250,9 @@ dependencies = [
 
 [[package]]
 name = "sea-query"
-version = "1.0.0-rc.31"
+version = "1.0.0-rc.33"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "58decdaaaf2a698170af2fa1b2e8f7b43a970e7768bf18aebaab113bada46354"
+checksum = "b04cdb0135c16e829504e93fbe7880513578d56f07aaea152283526590111828"
 dependencies = [
  "chrono",
  "inherent",
@@ -2294,11 +2294,11 @@ dependencies = [
 
 [[package]]
 name = "sea-query-sqlx"
-version = "0.8.0-rc.14"
+version = "0.8.0-rc.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e4377164b09a11bb692dec6966eb0e6908d63d768defef0be689b39e02cf8544"
+checksum = "a04aeecfe00614fece56336fd35dc385bb9ffed0c75660695ba925e42a3991ef"
 dependencies = [
- "sea-query 1.0.0-rc.31",
+ "sea-query 1.0.0-rc.33",
  "sqlx",
 ]
 
@@ -2309,7 +2309,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b363dd21c20fe4d1488819cb2bc7f8d4696c62dd9f39554f97639f54d57dd0ab"
 dependencies = [
  "async-trait",
- "sea-query 1.0.0-rc.31",
+ "sea-query 1.0.0-rc.33",
  "sea-query-sqlx",
  "sea-schema-derive",
  "sqlx",
@@ -2759,9 +2759,9 @@ dependencies = [
 
 [[package]]
 name = "strum"
-version = "0.27.2"
+version = "0.28.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "af23d6f6c1a224baef9d3f61e287d2761385a5b88fdab4eb4c6f11aeb54c4bcf"
+checksum = "9628de9b8791db39ceda2b119bbe13134770b56c138ec1d3af810d045c04f9bd"
 
 [[package]]
 name = "subtle"
@@ -2914,9 +2914,9 @@ checksum = "1f3ccbac311fea05f86f61904b462b55fb3df8837a366dfc601a0161d0532f20"
 
 [[package]]
 name = "tokio"
-version = "1.50.0"
+version = "1.52.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "27ad5e34374e03cfffefc301becb44e9dc3c17584f414349ebe29ed26661822d"
+checksum = "b67dee974fe86fd92cc45b7a95fdd2f99a36a6d7b0d431a231178d3d670bbcc6"
 dependencies = [
  "bytes",
  "libc",
@@ -2931,9 +2931,9 @@ dependencies = [
 
 [[package]]
 name = "tokio-macros"
-version = "2.6.1"
+version = "2.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5c55a2eff8b69ce66c84f85e1da1c233edc36ceb85a2058d11b0d6a3c7e7569c"
+checksum = "385a6cb71ab9ab790c5fe8d67f1645e6c450a7ce006a33de03daa956cf70a496"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -3149,9 +3149,9 @@ checksum = "0b928f33d975fc6ad9f86c8f283853ad26bdd5b10b7f1542aa2fa15e2289105a"
 
 [[package]]
 name = "vespera"
-version = "0.1.44"
+version = "0.1.51"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7f4167544cdf30a4dbfb56e0b0920a1c43f3b12dde75962e6610f04402b5c2c4"
+checksum = "f4f217d51b0403454c5ee6b798d853acf93cbe2bc5b318beba6d40035850262b"
 dependencies = [
  "axum",
  "axum-extra",
@@ -3166,9 +3166,9 @@ dependencies = [
 
 [[package]]
 name = "vespera_core"
-version = "0.1.44"
+version = "0.1.51"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1c2878068bbc6739fa0d6edb53e95f229fec0d811198550d9eee3fc71a5795a1"
+checksum = "73fc3c38f267572f59d54aa92c2ed96bacf746abf8e0a67a8d50819cea3ad4fc"
 dependencies = [
  "serde",
  "serde_json",
@@ -3176,9 +3176,9 @@ dependencies = [
 
 [[package]]
 name = "vespera_macro"
-version = "0.1.44"
+version = "0.1.51"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3cab5c731f8554a08a667aea7bf8338bffd5d5a3816a08ffaa3bada6194783cb"
+checksum = "7452a3ffa22362fecbb61da1d85dad8c18e09cb8187a37c3272f2693a829a5a6"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -3190,9 +3190,9 @@ dependencies = [
 
 [[package]]
 name = "vespertide"
-version = "0.1.52"
+version = "0.1.61"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "51222c1441f0a0337d427020d7a4927de2d5723e26cf9d073f3b2b589932ce1e"
+checksum = "ddf3d194aa2ab733b4b42f8dcb8ddcb1ef03c63b9d4fb2ce6f6228d8245aec94"
 dependencies = [
  "sea-orm",
  "vespertide-core",
@@ -3201,18 +3201,18 @@ dependencies = [
 
 [[package]]
 name = "vespertide-config"
-version = "0.1.52"
+version = "0.1.61"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8912f13583f619d12263ffb1d13665bee1981eb75f4e6577014984f374196a52"
+checksum = "66a6a6657ef2ae1d56ceefa049f1141c2b72cdf995f064e67af76df2177dcfb2"
 dependencies = [
  "serde",
 ]
 
 [[package]]
 name = "vespertide-core"
-version = "0.1.52"
+version = "0.1.61"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "be1e350818a3d22145f50ee08efd159a64e8e17f1581aeeeb7559df7eceaea49"
+checksum = "1054d5407b7907964fd3bc48af8fa5a848d26689f793d191f05f5a38307f5898"
 dependencies = [
  "serde",
  "thiserror",
@@ -3221,9 +3221,9 @@ dependencies = [
 
 [[package]]
 name = "vespertide-loader"
-version = "0.1.52"
+version = "0.1.61"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8d38d22bd66b49a6e94bf884191ab16cd5b886ae18b0e5fd4286ffc246f99827"
+checksum = "889a29fb049c85716d23ba94e0db8d16bac195f1a1e42658887d290ee8c967b9"
 dependencies = [
  "anyhow",
  "serde_json",
@@ -3235,9 +3235,9 @@ dependencies = [
 
 [[package]]
 name = "vespertide-macro"
-version = "0.1.52"
+version = "0.1.61"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5dd2f7904c03e06bdc32160eccd9ba6865722c8b6bb0d0d464dee9485bbda924"
+checksum = "2206f8e4949ab6564c52d9cf682e882905fdfabb0efb5e3c718b817c6ac12faf"
 dependencies = [
  "proc-macro2",
  "syn 2.0.117",
@@ -3250,15 +3250,15 @@ dependencies = [
 
 [[package]]
 name = "vespertide-naming"
-version = "0.1.52"
+version = "0.1.61"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a7c56bc8880ae5fb024cc0511381a94e59eb321fd8172da9f0b0cdefcef6e0b4"
+checksum = "fdfbc233c630f314f8dcf7a0dbfbaf2283869113d889bca3dc7a0889da35a568"
 
 [[package]]
 name = "vespertide-planner"
-version = "0.1.52"
+version = "0.1.61"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fd9776c3e29d0f22d0ac708f5dfe0fa824c8e7609c72b4ed611aefb9551f546a"
+checksum = "7144de21b6a6b5c54052a9a53209a763b2d32ca58fc7667cf9bda32f71f35a12"
 dependencies = [
  "thiserror",
  "vespertide-core",
@@ -3267,9 +3267,9 @@ dependencies = [
 
 [[package]]
 name = "vespertide-query"
-version = "0.1.52"
+version = "0.1.61"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "735cb2f04b2e1493c05f952aee4cd8f698f1ee0aea1f8c4dc2128a656ca289c6"
+checksum = "0cb20ff0671c8b8d89bdd792cdde3e0c752b54ece94e6fed7ec61afbd5a584d2"
 dependencies = [
  "sea-query 0.32.7",
  "thiserror",

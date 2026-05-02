@@ -3,8 +3,8 @@
   "description": "service-template",
   "type": "module",
   "devDependencies": {
-    "eslint-plugin-devup": "^2.0.17",
-    "oxlint": "1.56",
+    "eslint-plugin-devup": "^2.0.19",
+    "oxlint": "1.62",
     "husky": "^9.1",
     "bun-test-env-dom": "^1.0",
     "@devup-ui/bun-plugin": "^1.0",

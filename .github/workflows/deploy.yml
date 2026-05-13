@@ -33,14 +33,22 @@ jobs:
           - 5432
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
-      - uses: actions/setup-node@v4
+        uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: 24
 
       - uses: oven-sh/setup-bun@v2
       - name: Install uv
-        uses: astral-sh/setup-uv@v6
+        uses: astral-sh/setup-uv@v8.1.0
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+      - name: Install cargo-tarpaulin
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-tarpaulin
       - name: Install dependencies
         run: bun install
 
@@ -52,7 +60,7 @@ jobs:
         env:
           DB_SCHEMA: public
           DB_URL: localhost
-          DB_PORT: ${{ job.services.postgres.ports[5432] }}
+          DB_PORT: ${{ job.services.postgres.ports['5432'] }}
           DB_ID: postgres
           DB_PW: postgres
           DB_DB: postgres
@@ -75,7 +83,7 @@ jobs:
     needs:
       - check
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: changepacks/action@main
         id: changepacks
       - uses: atos-actions/clean-self-hosted-runner@v1
@@ -91,7 +99,7 @@ jobs:
     environment: ${{ (contains(needs.changepacks.outputs.changepacks, 'package.json') || github.event_name == 'workflow_dispatch') && 'PROD' || 'DEV' }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Collect API environment variables
         uses: dev-five-git/collect-env-action@main
         with:
@@ -112,7 +120,7 @@ jobs:
           tar -czf deploy.tar.gz api.tar.gz front.tar.gz docker-compose.yml Dockerfile.front Dockerfile.api nginx.conf apis/api/.env
           # zip -r deploy.zip api.tar.gz front.tar.gz docker-compose.yml Dockerfile.front Dockerfile.api nginx.conf apis/api/.env
       - name: upload
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: deploy
           path: deploy.tar.gz
@@ -125,7 +133,7 @@ jobs:
         run: |
           brew install hudochenkov/sshpass/sshpass
       - name: ssh
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1
         env:
           PORT: ${{ secrets.PORT }}
           DOCKER_BUILDKIT: 1
@@ -146,7 +154,7 @@ jobs:
         run: |
           sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no -P ${{ secrets.SSH_PORT }} deploy.tar.gz ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}:~/${{ github.repository }}/deploy.tar.gz
       - name: ssh
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1
         env:
           PORT: ${{ secrets.PORT }}
           DOCKER_BUILDKIT: 1

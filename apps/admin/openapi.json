@@ -20,8 +20,6 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "properties": {},
-                  "required": [],
                   "additionalProperties": {
                     "type": "string"
                   }
@@ -32,6 +30,5 @@
         }
       }
     }
-  },
-  "components": {}
+  }
 }

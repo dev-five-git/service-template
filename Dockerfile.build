@@ -24,7 +24,14 @@ COPY --from=deps /app/apps/admin/node_modules ./apps/admin/node_modules
 COPY --from=deps /app/apps/front/node_modules ./apps/front/node_modules
 COPY apps/admin ./apps/admin
 COPY apps/front ./apps/front
+COPY scripts ./scripts
 RUN bun run build
+
+RUN set -eu; \
+    for app in front admin; do \
+      mkdir -p /out/apps/$app; \
+      cp -a apps/$app/dist/standalone/. /out/apps/$app/; \
+    done
 
 # Production image, copy all the files and run next
 FROM base AS front-builder
@@ -33,18 +40,7 @@ WORKDIR /app
 # Create ecosystem file
 COPY ecosystem.json ./ecosystem.json
 
-COPY --from=builder /app/apps/admin/.next/standalone/node_modules /app/node_modules/
-COPY --from=builder /app/apps/front/.next/standalone/node_modules /app/node_modules/
-COPY --from=builder /app/apps/admin/public /app/apps/admin/public
-COPY --from=builder /app/apps/front/public /app/apps/front/public
-
-WORKDIR /app/apps/admin
-COPY --from=builder /app/apps/admin/.next/standalone/apps/admin ./
-COPY --from=builder /app/apps/admin/.next/static ./.next/static
-
-WORKDIR /app/apps/front
-COPY --from=builder /app/apps/front/.next/standalone/apps/front ./
-COPY --from=builder /app/apps/front/.next/static ./.next/static
+COPY --from=builder /out/ /app/
 
 WORKDIR /app
 

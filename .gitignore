@@ -33,3 +33,6 @@ cobertura.xml
 test.db
 .sisyphus
 tsconfig.tsbuildinfo
+/**/.vinext/
+/**/dist/
+.omo

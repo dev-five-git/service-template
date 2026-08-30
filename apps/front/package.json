@@ -17,7 +17,7 @@
     "react": "^19"
   },
   "devDependencies": {
-    "@devup-ui/next-plugin": "1.0.74",
+    "@devup-ui/next-plugin": "^1",
     "@devup-api/next-plugin": "^0.1",
     "@types/node": "^26",
     "@types/react": "^19",

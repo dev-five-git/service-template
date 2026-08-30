@@ -27,7 +27,7 @@
       },
       "devDependencies": {
         "@devup-api/next-plugin": "^0.1",
-        "@devup-ui/next-plugin": "1.0.74",
+        "@devup-ui/next-plugin": "^1",
         "@tanstack/react-query-devtools": "^5.102",
         "@types/node": "^26",
         "@types/react": "^19",
@@ -48,7 +48,7 @@
       },
       "devDependencies": {
         "@devup-api/next-plugin": "^0.1",
-        "@devup-ui/next-plugin": "1.0.74",
+        "@devup-ui/next-plugin": "^1",
         "@types/node": "^26",
         "@types/react": "^19",
         "babel-plugin-react-compiler": "^1.0.0",
@@ -113,7 +113,7 @@
 
     "@devup-ui/eslint-plugin": ["@devup-ui/eslint-plugin@1.0.19", "", { "dependencies": { "@typescript-eslint/utils": "^8.68", "typescript-eslint": "^8.68" } }, "sha512-Xu9jvbd5Dso2O+6j+rAB0Urqsj5qLsqMRRXd5hXki3EvIKW7/Fz4X+P5K9vPyqkubL5BtNG8GXY6E0M3t0j0lQ=="],
 
-    "@devup-ui/next-plugin": ["@devup-ui/next-plugin@1.0.74", "", { "dependencies": { "@devup-ui/plugin-utils": "^1.0.4", "@devup-ui/wasm": "^1.0.68", "@devup-ui/webpack-plugin": "^1.0.58" }, "peerDependencies": { "next": "*" } }, "sha512-GU2tz7RNZchnlzVxfXB7Sp2AMd/k3mjUyW/Tf6tDqhYgavYUz06DCV7lz4uojsMe/e1Q62IpwONINXicFBCH8Q=="],
+    "@devup-ui/next-plugin": ["@devup-ui/next-plugin@1.0.86", "", { "dependencies": { "@devup-ui/plugin-utils": "^1.0.13", "@devup-ui/wasm": "^1.0.78", "@devup-ui/webpack-plugin": "^1.0.66" }, "peerDependencies": { "next": "*" } }, "sha512-+r3tNuW1UVw0upkI65hcrObRPsdw1I+Kq0wiRlvQ9k27mFwsSmkk3HYP22pQdY1mypaLif9zaGRV2Gw2diHkGw=="],
 
     "@devup-ui/plugin-utils": ["@devup-ui/plugin-utils@1.0.14", "", {}, "sha512-XM/gW3K5L9DvRqdMdXLO7E6RKTTKflu2H4bRSw56nvcUP8owH2iYxd3j/D7W8774so5WPCn1QmhTf7XYfznS3w=="],
 

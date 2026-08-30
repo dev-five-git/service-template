@@ -20,7 +20,7 @@
     "@devup-api/react-query": "^0.1"
   },
   "devDependencies": {
-    "@devup-ui/next-plugin": "1.0.74",
+    "@devup-ui/next-plugin": "^1",
     "@devup-api/next-plugin": "^0.1",
     "@tanstack/react-query-devtools": "^5.102",
     "@types/node": "^26",

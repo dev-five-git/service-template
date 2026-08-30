@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "vinext dev --port 3000",
-    "build": "vinext build && bun run ../../scripts/prune-missing-assets.ts dist",
+    "build": "vinext build",
     "start": "vinext start",
     "test": "bun test"
   },

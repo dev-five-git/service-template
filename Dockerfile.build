@@ -24,7 +24,6 @@ COPY --from=deps /app/apps/admin/node_modules ./apps/admin/node_modules
 COPY --from=deps /app/apps/front/node_modules ./apps/front/node_modules
 COPY apps/admin ./apps/admin
 COPY apps/front ./apps/front
-COPY scripts ./scripts
 RUN bun run build
 
 RUN set -eu; \

@@ -50,7 +50,7 @@ WORKDIR /app
 
 RUN tar --exclude='.git' --exclude='.github' --exclude='.gitignore' -czf front.tar.gz .
 
-FROM rust:1.93-alpine AS api-builder
+FROM rust:1.98-alpine AS api-builder
 RUN apk add --no-cache musl-dev
 WORKDIR /app
 

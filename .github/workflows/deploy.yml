@@ -33,14 +33,14 @@ jobs:
           - 5432
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+        uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
 
       - uses: oven-sh/setup-bun@v2
       - name: Install uv
-        uses: astral-sh/setup-uv@v8.1.0
+        uses: astral-sh/setup-uv@v10.0.1
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
         with:
@@ -83,7 +83,7 @@ jobs:
     needs:
       - check
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: changepacks/action@main
         id: changepacks
       - uses: atos-actions/clean-self-hosted-runner@v1
@@ -99,7 +99,7 @@ jobs:
     environment: ${{ (contains(needs.changepacks.outputs.changepacks, 'package.json') || github.event_name == 'workflow_dispatch') && 'PROD' || 'DEV' }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Collect API environment variables
         uses: dev-five-git/collect-env-action@main
         with:

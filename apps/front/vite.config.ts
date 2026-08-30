@@ -6,7 +6,7 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   plugins: [
     devupApi(),
-    DevupUI({ include: ['@devup-ui/reset-css', '@devup-ui/components'] }),
+    DevupUI(),
     vinext({ nextConfig: { output: 'standalone' } }),
   ],
 })

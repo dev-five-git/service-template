@@ -7,6 +7,9 @@ export default defineConfig({
   plugins: [
     devupApi(),
     DevupUI(),
-    vinext({ nextConfig: { output: 'standalone' } }),
+    vinext({
+      nextConfig: { output: 'standalone' },
+      react: { compiler: true },
+    }),
   ],
 })

@@ -12,8 +12,4 @@ export default defineConfig({
       react: { compiler: true },
     }),
   ],
-  // devup-ui rewrites df/devup-ui/*.css on every dev transform. The CSS is
-  // served from memory, so the writes only make vinext reload the page in a
-  // loop. Only df/devup-ui is ignored: df/ also holds devup-api output.
-  server: { watch: { ignored: ['**/df/devup-ui/**'] } },
 })

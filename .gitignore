@@ -36,3 +36,4 @@ tsconfig.tsbuildinfo
 /**/.vinext/
 /**/dist/
 .omo
+.omc

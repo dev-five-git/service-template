@@ -13,7 +13,10 @@ been broken, not a general style guide.
 | API client | `@devup-api/fetch`, `@devup-api/react-query` (generated from `openapi.json`) |
 | `apis/api` | Rust / Axum (vespera), schemas in `vespertide.json` |
 | Package manager | **bun** workspaces (`apps/*`) |
-| Lint | `oxlint` + `eslint-plugin-devup` |
+| Lint | `oxlint` with the config from `eslint-plugin-devup`, React Compiler rules included |
+| React Compiler | On in both apps: `vinext({ react: { compiler: true } })` + `oxc-transform-react` |
+| TypeScript | Apps: TS 7 (`@typescript/native`). Root `typescript`: TS 6 alias for lint tooling |
+| Agent tooling | [devup-mcp](https://github.com/dev-five-git/devup-mcp), see section 7 |
 
 ## 1. This is a Next App Router project. `vite.config.ts` does not say otherwise.
 
@@ -98,24 +101,73 @@ apps/front/src/
 the `$token` names in code must come from that file. `$token` only resolves in
 a **JSX prop** — in an external object use `var(--token)`.
 
+Read the real names with `devup_project_context` (scope `theme`) instead of
+guessing them. Colors and lengths take a `$` prefix (`bg="$primary"`);
+typography takes the bare name (`typography="bodyS"`).
+
 ## 5. Verify before you claim it works
 
 ```bash
-bun run lint          # oxlint
-bun tsc --noEmit      # inside the app you changed
-bun test              # bun test
+bun run lint                  # cargo clippy/fmt/check, then oxlint
+bunx oxlint --deny-warnings   # warnings count: keep them at 0
+bun tsc --noEmit              # inside the app you changed (TS 7)
+bun test                      # bun test
 cargo clippy -- -D warnings && cargo fmt --check   # if you touched apis/
 ```
 
-`bun run build` builds both apps.
+`bun run build` builds both apps. `bun run test` also runs `cargo tarpaulin`
+afterwards, which does not work on Windows; there, run `bun test` and
+`cargo test` instead.
 
 Run the dev server from inside the app (`cd apps/front && bun dev`), not with
 `bun -F front dev`, which leaves zombie processes.
 
-## 6. Load the skills
+The dev server needs `@devup-ui/vite-plugin` 1.0.72 or later; with older
+versions every edit sends the dev server into a reload loop. Do not work
+around that with `server.watch.ignored` for `df/devup-ui`: it hides
+`globalCss` changes until the dev server restarts.
 
-The full conventions live in agent skills, not in this file. If your workspace
-has none, `devup-mcp` carries them and installs them with no network:
+## 6. Setup that looks wrong but is intentional
+
+- **Two TypeScripts.** The apps run TS 7 (`"@typescript/native": "npm:typescript@^7.0.2"`,
+  so `bun tsc` inside an app is TS 7). The root `typescript` is an alias to
+  `@typescript/typescript6`, because typescript-eslint, which
+  `eslint-plugin-devup` loads into oxlint, cannot run on TS 7. Keep both when
+  upgrading dependencies.
+- **React Compiler through vinext.** vinext does not read `reactCompiler: true`
+  from a Next config, and `@vitejs/plugin-react` 6 no longer uses Babel. The
+  compiler is on through `vinext({ react: { compiler: true } })` with
+  `oxc-transform-react` installed. Do not add `babel-plugin-react-compiler`.
+- **Write code for the compiler.** It memoizes for you, so new code does not
+  need `useMemo`, `useCallback` or `memo` for performance. Avoid `useEffect`:
+  derive values during render, do DOM work in a ref callback that returns its
+  cleanup, and handle user actions in event handlers. If an effect has to
+  stay, say why in the PR.
+
+## 7. Develop with devup-mcp
+
+Use [devup-mcp](https://github.com/dev-five-git/devup-mcp) for anything that
+touches design, theme tokens, the API or the DB. It reads the real
+`devup.json`, `openapi.json`, vespertide models and Figma file, so nothing has
+to be guessed.
+
+| Task | Tool |
+|------|------|
+| Before writing UI | `devup_project_context` scope `theme` (and `ui` for components to reuse) |
+| Calling the API or touching the DB | `devup_project_context` scope `api` or `db` |
+| Implementing a Figma screen | `devup_figma_auth` `status`, then `devup_figma_export`. Read `devup://guide/usage` first. Its `tsx` is the deliverable: do not rewrite it from a screenshot, and never guess a color, spacing or font value |
+| After writing devup-ui TSX | `devup_ui_validate` with `projectRoot` |
+| After changing routes, models or `openapi.json` | `devup_stack_diff` |
+| One feature across screen, API and DB | `devup_feature_trace` from an explicit anchor (route, operationId, table) |
+| Comparing a rendered screenshot with the design | `devup_visual_compare` |
+
+If devup-mcp is not connected or a call fails, say so. Do not fall back to
+guessing.
+
+### Skills
+
+The full conventions live in agent skills, not in this file. `devup_skills`
+reports which ones are missing and installs the ones devup-mcp carries:
 
 ```
 devup_skills { "action": "status" }
@@ -127,5 +179,10 @@ devup_skills { "action": "install" }
 | `devfive-frontend` | Structure, Server Components, the rules above in detail |
 | `devup-ui` | Style props, responsive arrays, `$token`, what extracts statically |
 | `vespera` / `vespertide` | The Rust API and its DB schemas |
+| `changepacks` | Versioning; `.changepacks/config.json` decides which files need a changepack log |
+
+`status` also lists repository obligations such as changepacks. Create a log
+with `bunx @changepacks/cli --yes --update-type <major|minor|patch> --message "..."`;
+without these flags the CLI opens an interactive prompt.
 
 This file is the minimum that has to be true even when no skill is loaded.
